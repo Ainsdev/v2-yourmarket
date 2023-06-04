@@ -1,0 +1,190 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Verifications {
+  userId      String   @id
+  name        String
+  lastName    String
+  personal_id String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  status      status   @default(pending)
+}
+
+model User {
+  id                        String   @id
+  name                      String?
+  email                     String   @unique
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+  adress                    String?
+  city                      String?
+  country                   String
+  hasStore                  Boolean  @default(false)
+  phone                     Int?
+  premium                   Boolean  @default(false)
+  status                    status   @default(pending)
+  storeId                   Int?     @unique
+  verified                  Boolean  @default(false)
+  store                     Store?
+  Store_User_storeIdToStore Store?   @relation("User_storeIdToStore", fields: [storeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  // following_stores Store[]  @relation("storeFollowers")
+  // orders          Order[]
+  // payments        Payment[]
+  // carts           Cart[]
+  // wishlist        Wishlist[]
+  // reviews         Review[]
+  // ratings         Rating[]
+  // comments        Comment[]
+  // reports         Report[]
+}
+
+model Store {
+  id                       Int       @id @default(autoincrement())
+  name                     String
+  verified                 Boolean   @default(false)
+  premium                  Boolean   @default(false)
+  owner_id                 String    @unique
+  status                   status    @default(active)
+  logo_url                 String?   @unique
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+  deletedAt                DateTime?
+  owner                    User      @relation(fields: [owner_id], references: [id])
+  User_User_storeIdToStore User?     @relation("User_storeIdToStore")
+  location                 String
+  sm_link                     String
+  // colors         String[]
+  // design_type     String
+  // total_sales     Int               @default(0)
+  // categories      Store_categories[]
+  // rating          Float            @default(0)
+  // payment_methods String[] 
+  // commission      Int   
+  // followers_num   Int              @default(0)
+  // followers       User[]       @relation("storeFollowers")
+
+  @@unique([owner_id, name])
+  @@index([owner_id, name, status])
+}
+
+// model Discounts {
+//   id        Int       @id @default(autoincrement())
+//   name      String
+//   amount    Int
+//   percentaje Int
+//   createdAt DateTime  @default(now())
+//   expiredAt DateTime
+//   deletedAt DateTime?
+//   storeId   Int
+//   store     Store     @relation(fields: [storeId], references: [id])
+// }
+
+// model Store_categories {
+//   id        String    @id @default(uuid())
+//   name      String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+//   deletedAt DateTime?
+//   storeId   Int
+//   public    Boolean   @default(true)
+//   store     Store     @relation(fields: [storeId], references: [id])
+//   products  Product[]
+// }
+
+// model Oficial_categories {
+//   id        Int       @id @default(autoincrement())
+//   name      String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+//   deletedAt DateTime?
+//   products  Product[]
+// }
+
+// model Product {
+//   id           Int       @id @default(autoincrement())
+//   name         String
+//   price        Int
+//   discount     Int
+//   views        Int
+//   description  String
+//   stock        Int
+//   images       String[]
+//   status       status    @default(active)
+//   createdAt    DateTime  @default(now())
+//   updatedAt    DateTime  @updatedAt
+//   deletedAt    DateTime?
+//   storeId      Int
+//   store        Store     @relation(fields: [storeId], references: [id])
+//   oficial_category_id Int
+//   oficial_category Oficial_categories @relation(fields: [oficial_category_id], references: [id])
+//   store_category_id String
+//   store_category Store_categories @relation(fields: [store_category_id], references: [id])
+//   @@index([name])
+// }
+// model Discounts {
+//   id        Int       @id @default(autoincrement())
+//   name      String
+//   amount    Int
+//   percentaje Int
+//   createdAt DateTime  @default(now())
+//   expiredAt DateTime
+//   deletedAt DateTime?
+//   storeId   Int
+//   store     Store     @relation(fields: [storeId], references: [id])
+// }
+
+// model Store_categories {
+//   id        String    @id @default(uuid())
+//   name      String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+//   deletedAt DateTime?
+//   storeId   Int
+//   public    Boolean   @default(true)
+//   store     Store     @relation(fields: [storeId], references: [id])
+//   products  Product[]
+// }
+
+// model Oficial_categories {
+//   id        Int       @id @default(autoincrement())
+//   name      String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+//   deletedAt DateTime?
+//   products  Product[]
+// }
+
+// model Product {
+//   id           Int       @id @default(autoincrement())
+//   name         String
+//   price        Int
+//   discount     Int
+//   views        Int
+//   description  String
+//   stock        Int
+//   images       String[]
+//   status       status    @default(active)
+//   createdAt    DateTime  @default(now())
+//   updatedAt    DateTime  @updatedAt
+//   deletedAt    DateTime?
+//   storeId      Int
+//   store        Store     @relation(fields: [storeId], references: [id])
+//   oficial_category_id Int
+//   oficial_category Oficial_categories @relation(fields: [oficial_category_id], references: [id])
+//   store_category_id String
+//   store_category Store_categories @relation(fields: [store_category_id], references: [id])
+//   @@index([name])
+// }
+enum status {
+  active
+  pending
+  blocked
+  deleted
+}

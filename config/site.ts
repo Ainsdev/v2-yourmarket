@@ -1,9 +1,9 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Next.js",
+  name: "YourMarket",
   description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+    "Vende Ropa unica y de calidad.",
   mainNav: [
     {
       title: "Home",
