@@ -17,7 +17,7 @@ export default function CustomButton({ title, url,color }: Props) {
         )
       }></span>
       <span className="absolute inset-0 h-full w-full border-4 border-orange-500"></span>
-      <span className="relative text-secondary text-lg">{title}</span>
+      <span className="relative text-lg text-secondary">{title}</span>
     </Link>
   )
 }

@@ -149,7 +149,7 @@ module.exports = {
         "slide-out-fwd-right":
           "slide-out-fwd-right 1.4s cubic-bezier(0.550, 0.085, 0.680, 0.530)   both",
         "kenburns-bottom": "kenburns-bottom 3s ease   both",
-        text: "text 3s ease",
+        text: "text 5s ease",
       },
     },
   },

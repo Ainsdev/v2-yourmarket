@@ -18,7 +18,7 @@ export default function MainTitle() {
       </p>
       <div className="mt-12 flex items-center justify-center gap-4 ">
         <CustomButton title="Crea tu tienda" url="/login" color="primary" />
-        <CustomButton title="Compra" url="/home" color="primary" />
+        <CustomButton title="Ir a Comprar" url="/home" color="primary" />
       </div>
 
       <div

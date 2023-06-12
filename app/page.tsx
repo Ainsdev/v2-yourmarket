@@ -1,12 +1,24 @@
-import Link from "next/link"
+"use client"
 
-import { siteConfig } from "@/config/site"
-import { Button } from "@/components/ui/button"
+import { useEffect, useRef } from "react"
+
 import CustomButton from "@/components/ui/button-1"
 import AnimatedTitle from "@/components/landing/animated-title"
 import MainTitle from "@/components/landing/main-title"
 
 export default function IndexPage() {
+  useEffect(() => {
+    const section = document.querySelector("section") as HTMLElement
+    section.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault()
+        section.scrollLeft += e.deltaY
+      },
+      { passive: false }
+    )
+  })
+
   return (
     <main className="flex h-max w-full flex-1 flex-col items-center justify-start px-5 pt-20 text-center">
       <MainTitle />
@@ -25,39 +37,56 @@ export default function IndexPage() {
           </video>
         </div>
         <div className="z-30 flex h-max w-full flex-col items-center justify-center">
-          <div className="group relative flex h-48 w-full items-center justify-center overflow-hidden sm:h-80 lg:h-96">
-            <div className="absolute z-20 h-full w-screen bg-secondary  transition-all duration-1000 ease-in-out group-hover:translate-x-full" />
-            <div
-              className="absolute z-10 h-full w-screen 
-            bg-[url('https://media.vogue.es/photos/5d3efffb90d7160008c443d2/16:9/pass/005-The-Complex-Case-Streetwear-Vogueint-June14-Getty-Images.jpg')]
-            bg-cover bg-center  bg-no-repeat  blur-sm transition-all duration-1000 ease-in-out group-hover:blur-none"
-            />
-            <div className="z-30 flex items-center justify-center">
-              <h3 className="bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-3xl font-extrabold text-transparent transition group-hover:animate-text sm:text-7xl xl:text-[105px] 2xl:text-9xl">
-                1. SUBE TUS PRODUCTOS
-              </h3>
-            </div>
-          </div>
-          <div className="group relative flex h-48 w-full items-center justify-center overflow-hidden sm:h-80 lg:h-96">
-            <div className="absolute z-20 h-full w-screen bg-secondary  transition-all duration-1000 ease-in-out group-hover:translate-x-full" />
-            <div
-              className="absolute z-10 h-full w-screen 
-            bg-[url('https://media.vogue.es/photos/5d3efffb90d7160008c443d2/16:9/pass/005-The-Complex-Case-Streetwear-Vogueint-June14-Getty-Images.jpg')]
-            bg-cover bg-center  bg-no-repeat  blur-sm transition-all duration-1000 ease-in-out group-hover:blur-none"
-            />
-            <div className="z-30 flex items-center justify-center">
-              <h3 className="bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-3xl font-extrabold text-transparent transition group-hover:animate-text sm:text-7xl xl:text-[105px] 2xl:text-9xl">
-                1. SUBE TUS PRODUCTOS
-              </h3>
-            </div>
-          </div>
           <AnimatedTitle
-            title="PROBANDO 123"
-            subtitle=""
-            image="'https://media.vogue.es/photos/5d3efffb90d7160008c443d2/16:9/pass/005-The-Complex-Case-Streetwear-Vogueint-June14-Getty-Images.jpg'"
+            title="PRODUCTOS"
+            subtitle="Sube tus prendas, zapatillas y da vida a tu tienda en segundos."
+            image="https://assets.vogue.com/photos/60d88c184b12a701e3d2f114/16:9/w_2991,h_1682,c_limit/Paris%20Mens%20SS22%20day%205%20by%20STYLEDUMONDE%20Street%20Style%20Fashion%20Photography_95A0608FullRes.jpg"
+            side="left"
+            position="bg-top"
+          />
+          <AnimatedTitle
+            title="COMPARTE"
+            subtitle="Comparte tus tesoros en tus redes sociales y con una audiencia lista para descubrir nuevas marcas."
+            image="https://media.vogue.es/photos/5d3efffb90d7160008c443d2/16:9/pass/005-The-Complex-Case-Streetwear-Vogueint-June14-Getty-Images.jpg"
+            side="right"
+            position="bg-center"
+          />
+          <AnimatedTitle
+            title="VENDE"
+            subtitle="¡Gana dinero vendiendo productos de calidad! Simplifica y maximiza tus ganancias. Crea una base de clientes ansiosa por comprar."
+            image="https://hips.hearstapps.com/hmg-prod/images/0-copy-1653495593.jpg"
+            side="left"
+            position="bg-center"
+          />
+          <AnimatedTitle
+            title="RECONOCIMIENTO"
+            subtitle="Obtén feedback valioso y construye tu reputación. Gana visibilidad y conquista el corazón de los aficionados con tus productos."
+            image="https://views.fr/wp-content/uploads/2017/08/CxyHX17WgAEmlus.jpg"
+            side="left"
+            position="bg-center"
           />
         </div>
       </div>
+      <div className="flex w-full flex-col items-center justify-center gap-4 py-10">
+        <p className="text-2xl font-bold text-gray-800">
+          Cambia la industria con nosotros
+        </p>
+        <CustomButton title="EMPEZAR AHORA" url="/" color="primary" />
+      </div>
+      <section
+        id="section"
+        className="flex h-full w-full overflow-x-hidden"
+      >
+        <div className="z-50 flex h-screen w-screen flex-none snap-start flex-col items-center justify-center gap-4 bg-red-500">
+          <h1 className="text-4xl font-bold text-white">Hola</h1>
+        </div>
+        <div className="z-50 flex h-screen w-screen flex-none snap-start flex-col items-center justify-center gap-4 bg-green-500">
+          <h1 className="text-4xl font-bold text-white">Hola 2</h1>
+        </div>
+        <div className="z-50 flex h-screen w-screen flex-none snap-start flex-col items-center justify-center gap-4 bg-yellow-300">
+          <h1 className="text-4xl font-bold text-white">Hola 3</h1>
+        </div>
+      </section>
     </main>
   )
 }
